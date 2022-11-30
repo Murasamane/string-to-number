@@ -1,7 +1,7 @@
-const numbers = `599113599`;
+const tel_num = `599113599`;
 
 // internalization method
-const internationalize = new Intl.NumberFormat('ka-GE').format(numbers);
+const internationalize = new Intl.NumberFormat("ka-GE").format(tel_num);
 console.log(internationalize);
 
 // custom algorithm
@@ -13,4 +13,31 @@ const modernizeNum = (number) =>
         7
       )}-${number.slice(7, 9)}`;
 
-console.log(modernizeNum(numbers));
+console.log(modernizeNum(tel_num));
+
+/**
+ * my solution in that case
+ * @param {string} num
+ * @param {string} cCode
+ * @returns
+ */
+const modifyTelephoneNumber = (num, cCode) => {
+  if (num.length !== 9 || !/^-?\d+$/.test(num) || !cCode) {
+    return "Number does not matchs";
+  }
+
+  // creating mobile number pattern here
+  let pattern = `(+${cCode}) xxx-xx-xx-xx`;
+
+  // replace function will replace x -> curr num in every iteration
+  for (let i of num) {
+    pattern = pattern.replace("x", i);
+  }
+
+  // function returns num
+  return pattern;
+};
+
+const res = modifyTelephoneNumber(tel_num, "995");
+
+console.log("my solution =>", res);
